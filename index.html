@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax ejercicio Alumnos</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(24, 24, 24);
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #parallax-container {
+            position: relative;
+            height: 100vh;
+            /* Ocupa el 100% de la altura de la ventana */
+            overflow: hidden;
+            /* Oculta el desbordamiento */
+        }
+
+        #layer1 {
+            /*Debe de tenerlo cada imagen*/
+            position: absolute;
+            z-index: 1;
+            /* El más bajo el del fondo*/
+            background-image: url('rutaDeLaImgFondo');
+            top: 100;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .imgT {
+            z-index: 3;
+            position: absolute;
+            top: -5%;
+            left: 12%;
+            width: 75%;
+            height: 75%;
+        }
+
+        #layer2 {
+            /*Debe de tenerlo cada imagen para ver el órden de las capas*/
+            z-index: 2;
+            /* Medio */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        #layer3 {
+            /* El más alto */
+            z-index: 4;
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 100%;
+            height: 160%;
+
+        }
+
+
+        #layer4 {
+            position: absolute;
+            z-index: 5;
+            /* El más alto */
+            top: 0;
+            left: 12%;
+            width: 80%;
+            height: 160%;
+        }
+
+        .completo {
+            width: 100%;
+            height: 50%;
+        }
+
+        /* --- Contenido (Debajo del Parallax) --- */
+        .contenido {
+            padding: 50px 70px;
+            text-align: center;
+            min-height: 500px;
+            font-size: 2.5rem;
+            margin-left: 60px;
+            margin-right: 60px;
+        }
+
+        .contenido p {
+            color: rgb(218, 218, 218);
+        }
+
+        .contenido h2 {
+            color: #62E7FF;
+            font-size: 8rem;
+        }
+        footer
+        {
+            width: 100%;
+            height: 150px;
+            margin: 0 auto;
+            background-color: #62E7FF;
+            text-align: center;
+            padding: 20px;
+        }
+        footer p{
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="parallax-container">
+
+        <div id="layer1">
+            <img src="img/Fondo.png" alt="Imagen universo">
+        </div>
+
+        <div id="layer2">
+            <img class="imgT" src="img/Titulo.png" alt="Titulo">
+            <img src="img/planeta.png">
+        </div>
+
+        <div id="layer3">
+            <img class="completo" src="img/CATS.png">
+        </div>
+
+        <div id="layer4">
+            <img class="completo" src="img/STARS.png">
+        </div>
+
+    </div>
+
+    <section class="contenido">
+        <div>
+            <p>Puede que los perros sean el mejor amigo del hombre, pero los gatos merecen más reconocimiento por su
+                dominio doméstico. Los gatos domésticos superan en número a los perros en una proporción de hasta 3 a 1
+                en todo el mundo, lo cual es especialmente impresionante dadas sus características definitorias: a
+                diferencia de los perros, que fueron domesticados originalmente por su capacidad para cazar, pastorear y
+                proteger, los gatos nunca fueron utilitarios (aparte de su capacidad para ahuyentar a los ratones).
+            </p>
+            <h2>Escoge A Un Gato</h2>
+            <p>
+                Los humanos podrían haber adoptado otra especie pequeña, como los tejones o los zorros. Pero los gatos
+                nos predispusieron a amarlos, en parte por sus rostros humanoides —esos grandes ojos nos recuerdan a
+                nuestros propios bebés— y en parte porque no nos temían tanto como otros animales. Ahora los felinos son
+                una obsesión global, especialmente en internet, donde figuras como Grumpy Cat tienen más seguidores (y
+                potencial de ingresos) que muchas celebridades humanas. «En muchos sentidos», escribe Tucker, «[los
+                gatos] nos dominan».
+            </p>
+        </div>
+    </section>
+    <footer>
+        <p>
+            Porque el amor por los gatos es más que un capricho, es un dominio total del universo.
+        </p>
+        <h5>
+            © THE CAT, 2026
+        </h5>
+    </footer>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const layer1 = document.getElementById('layer1');
+            const layer2 = document.getElementById('layer2');
+            const layer3 = document.getElementById('layer3');
+            const layer4 = document.getElementById('layer4');
+            const container = document.getElementById('parallax-container');
+
+            //Definimos las velocidades de desplazamiento
+            const speed1 = 0.4; // El fondo se mueve más rápido
+            const speed2 = 0.2;
+            const speed3 = 0.1; // El frente se mueve más lento
+            const speed4 = 0.1; // El frente se mueve más lento
+
+            function updateParallax()
+            {
+                // Es para que obtengamos la posición de scroll del elemento contenedor (respecto al top de la ventana)
+                const scrollOffset = container.getBoundingClientRect().top;
+
+                // Multiplicamos el desplazamiento por la velocidad de cada capa
+
+                layer1.style.transform = `translate3d(0, ${scrollOffset * speed1}px, 0)`;
+
+
+                layer2.style.transform = `translate3d(0, 0, 0)`;
+
+
+                layer3.style.transform = `translate3d(0, ${scrollOffset * speed3}px, 0)`;
+
+                layer4.style.transform = `translate3d(0, ${scrollOffset * speed3}px, 0)`;
+
+            }
+
+            //Agregamos el listener para el evento
+            window.addEventListener('scroll', updateParallax);
+
+
+            updateParallax();
+        });
+    </script>
+</body>
+
+</html>
